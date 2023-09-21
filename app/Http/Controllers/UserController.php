@@ -12,7 +12,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('channels')->get();
+        $users = User::all();
 
         return response()->json($users);
     }

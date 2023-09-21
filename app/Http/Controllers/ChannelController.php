@@ -24,6 +24,18 @@ class ChannelController extends Controller
         //
     }
 
+    public function usersByChannel(string $id)
+    {
+        try {
+            $users = Channel::find($id)->users()->get();
+            if ($users) {
+                return response()->json(["users" => $users, "messages" => ["Message1", "Message2"]], 200);
+            }
+        } catch (\Throwable) {
+            return response()->json(["msg" => "Channel not found"], 404);
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      */
