@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Channel as ChannelResource;
 use App\Models\Channel;
 use Illuminate\Http\Request;
 
@@ -27,10 +28,7 @@ class ChannelController extends Controller
     public function usersByChannel(string $id)
     {
         try {
-            $users = Channel::find($id)->users()->get();
-            if ($users) {
-                return response()->json(["users" => $users, "messages" => ["Message1", "Message2"]], 200);
-            }
+            return new ChannelResource(Channel::findOrFail($id));
         } catch (\Throwable) {
             return response()->json(["msg" => "Channel not found"], 404);
         }
