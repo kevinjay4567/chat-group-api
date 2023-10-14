@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUser;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -28,9 +31,20 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUser $request)
     {
-        //
+        try {
+            $user = new User;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = $request->password;
+            $user->save();
+            DB::table('channel_user')->insert(['user_id' => $user->id, 'channel_id' => 1]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e], 400);
+        }
+
+        return response()->json(['msg' => "User create succesfuly", 'id' => $user->id], 200);
     }
 
     /**

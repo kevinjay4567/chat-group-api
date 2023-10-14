@@ -21,5 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/users', [UserController::class, 'index'])->name('users');
+Route::post('/users', [UserController::class, 'store'])->name('store_user');
 Route::get('/channels', [ChannelController::class, 'index'])->name('channels');
 Route::get('/channel/{id}', [ChannelController::class, 'usersByChannel']);
