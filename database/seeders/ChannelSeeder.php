@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Channel;
 use Illuminate\Database\Seeder;
 
 class ChannelSeeder extends Seeder
@@ -12,6 +12,8 @@ class ChannelSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Channel::create([
+            'name' => 'Welcome'
+        ]);
     }
 }
